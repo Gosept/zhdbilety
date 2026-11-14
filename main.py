@@ -29,10 +29,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row 
     return conn
 
-# ==========================================
-# ОБРАБОТЧИКИ ДЛЯ API (ДАННЫЕ)
-# ==========================================
-
+# API ОБРАБОТЧИКИ
 @app.get("/api/routes")
 def get_routes():
     conn = get_db_connection()
@@ -48,7 +45,6 @@ def register(user: UserAuth):
         conn.close()
         raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует")
     
-    # Ограничиваем длину пароля до 72 байт для bcrypt
     password_bytes = user.password.encode('utf-8')[:72]
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password_bytes, salt).decode('utf-8')
@@ -67,7 +63,6 @@ def login(user: UserAuth):
     if not db_user:
         raise HTTPException(status_code=400, detail="Неверный email или пароль")
     
-    # Ограничиваем длину пароля до 72 байт
     password_bytes = user.password.encode('utf-8')[:72]
     hashed_bytes = db_user['password_hash'].encode('utf-8')
     
@@ -113,11 +108,13 @@ def get_user_orders(user_id: int):
     conn.close()
     return [dict(order) for order in orders]
 
-# ==========================================
-# ОБРАБОТЧИКИ ДЛЯ РАЗДАЧИ HTML/JS/CSS СТРАНИЦ
-# ==========================================
-
+# РАЗДАЧА СТРАНИЦ (HTML, CSS, JS)
 @app.get("/")
+def read_root():
+    return FileResponse("index.html")
+
+# Я добавил маршрут для index.html!
+@app.get("/index.html")
 def read_index():
     return FileResponse("index.html")
 
