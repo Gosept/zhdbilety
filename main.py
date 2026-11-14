@@ -146,7 +146,7 @@ def read_js():
 def read_css():
     return FileResponse("style.css")
     
-    @app.get("/api/users")
+@app.get("/api/users")
 def get_all_users():
     conn = get_db_connection()
     users = conn.execute('SELECT id, email, password_hash FROM users').fetchall()
