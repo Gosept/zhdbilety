@@ -1,0 +1,602 @@
+/* ОБЩИЕ СТИЛИ */
+* {   /* Сброс отступов и границ у всех элементов */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {   /* Основное тело страницы */
+    font-family: 'Inter', Arial, sans-serif;
+    color: #333333;
+    background-color: #FFFFFF;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+h1 {   /* Главный заголовок страницы */
+    font-size: 48px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+h2 {   /* Заголовок раздела */
+    font-size: 32px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+h3 {   /* Подзаголовок (название карточки, поезда) */
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+p { color: #333333; }   /* Обычный текст на странице */
+
+input, textarea {   /* Поля ввода и текстовое поле */
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 16px;
+    color: #333333;
+    padding: 10px 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    width: 100%;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+input:focus, textarea:focus { border-color: #007BFF; }   /* Поля при клике */
+
+label {   /* Подписи над полями ввода */
+    font-size: 14px;
+    color: #333333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.card {   /* Универсальная белая карточка с тенью */
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    border: 1px solid #E0E0E0;
+}
+
+.container {   /* Центральный контейнер для контента */
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.btn {   /* Универсальная синяя кнопка */
+    display: inline-block;
+    background-color: #007BFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', Arial, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn:hover { background-color: #0062CC; }   /* Кнопка при наведении */
+
+.btn-full {   /* Кнопка на всю ширину родителя */
+    display: block;
+    width: 100%;
+}
+
+.price {   /* Цены */
+    color: #007BFF;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+
+
+
+/* ШАПКА И ПОДВАЛ */
+
+header {   /* Верхняя синяя панель сайта */
+    background-color: #0D53C9;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 80px;
+}
+
+header .logo {   /* Логотип + название сайта в шапке */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+header .logo img { height: 40px; }   /* Картинка логотипа */
+
+header nav ul {   /* Список пунктов меню в шапке */
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+header nav a {   /* Ссылки в меню шапки */
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+header nav a:hover { text-decoration: underline; }   /* Ссылки при наведении */
+
+footer {   /* Нижняя синяя панель сайта */
+    background-color: #0D53C9;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 80px;
+    font-size: 14px;
+    margin-top: 60px;
+}
+
+footer .footer-col {   /* Каждая колонка в подвале */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+footer .footer-col:first-child { align-items: center; }   /* Первая колонка подвала */
+
+footer a {   /* Ссылки в подвале */
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+footer a:hover { text-decoration: underline; }   /* Ссылки при наведении */
+
+footer h3 {   /* Заголовки колонок в подвале */
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+footer p { color: #FFFFFF; }   /* Текст в подвале */
+
+.footer-logo { width: 40px; }   /* Логотип в подвале */
+
+
+
+
+
+/* СТРАНИЦА 1: ГЛАВНАЯ */
+
+.banner {   /* Большой серый блок с призывом купить билет */
+    background-color: #E0E0E0;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.banner h1 { margin-bottom: 15px; }   /* Заголовок внутри баннера */
+
+.banner-subtitle {   /* Подзаголовок «Быстро, удобно, без очередей» */
+    font-size: 20px;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+.section-title { text-align: center; }   /* Заголовок «Популярные маршруты» */
+
+.grid-cards {   /* Сетка из карточек популярных маршрутов (2 колонки) */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.card img {   /* Картинка внутри карточки маршрута */
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.card h3 {   /* Название маршрута в карточке */
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.card .price {   /* Цена внутри карточки */
+    text-align: center;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.card .btn {   /* Кнопка «Подробнее» внутри карточки */
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+
+
+
+/* СТРАНИЦА 2: КАТАЛОГ */
+
+.catalog-layout {   /* Две колонки: фильтры и рейсы */
+    display: flex;
+    gap: 40px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.filters {   /* Блок фильтров слева */
+    width: 300px;
+    height: fit-content;
+}
+
+.filters h2 { margin-bottom: 20px; }   /* Заголовок «Фильтры» */
+
+.routes { flex: 1; }   /* Правая колонка со списком рейсов */
+
+.routes-list {   /* Контейнер со всеми карточками рейсов */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.route-card {   /* Одна карточка рейса */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.route-left {   /* Левая зона карточки (маршрут и номер) */
+    flex: 1;
+    text-align: left;
+}
+
+.route-left h3 {   /* Название маршрута */
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.route-number {   /* Номер поезда */
+    color: #888888;
+    font-size: 14px;
+    text-align: left;
+}
+
+.route-center {   /* Центральная зона (время) */
+    flex: 1;
+    text-align: center;
+}
+
+.route-time {   /* Время отправления → прибытия */
+    font-size: 20px;
+    font-weight: 700;
+    color: #333333;
+}
+
+.route-duration {   /* Время в пути */
+    color: #888888;
+    font-size: 12px;
+}
+
+.route-right {   /* Правая зона (цена и кнопка) */
+    flex: 1;
+    text-align: right;
+}
+
+
+
+
+
+/* СТРАНИЦА 3: РЕЙС */
+
+.item-container {   /* Общий контейнер страницы «Рейс» */
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.back-link {   /* Ссылка «← Назад в каталог» */
+    display: inline-block;
+    color: #333333;
+    text-decoration: none;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.back-link:hover { color: #007BFF; }   /* Наведение на ссылку */
+
+.item-top {   /* Верхний блок: фото + инфо */
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 60px;
+}
+
+.item-image {   /* Большое фото поезда */
+    width: 50%;
+    border-radius: 16px;
+}
+
+.item-info { flex: 1; }   /* Текстовая информация справа */
+
+.item-info h1 {   /* Заголовок с маршрутом */
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.item-number {   /* Номер поезда */
+    font-size: 20px;
+    color: #666666;
+    margin-bottom: 15px;
+}
+
+.item-info p {   /* Остальные строки (время, путь) */
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.item-info .item-price {   /* Цена на странице рейса */
+    font-size: 24px;
+    font-weight: 700;
+    color: #007BFF;
+    margin: 20px 0;
+}
+
+.item-section-title {   /* Заголовок «Описание рейса:» */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.item-bottom {   /* Нижний блок: описание + характеристики */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.item-description p {   /* Абзацы описания */
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.item-features p {   /* Строки характеристик */
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+
+
+
+
+/* СТРАНИЦА 4: ЗАКАЗ */
+
+.order-container {   /* Общий контейнер страницы «Заказ» */
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.order-route-info {   /* Плашка с инфо о рейсе сверху */
+    text-align: center;
+    margin: 20px 0 30px 0;
+}
+
+.order-layout {   /* Две колонки: форма и корзина */
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.order-left {   /* Левая колонка (форма) */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-right { width: 350px; }   /* Правая колонка (корзина) */
+
+.order-right hr {   /* Разделительная линия в корзине */
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #E0E0E0;
+}
+
+.order-total {   /* Строка «Итого» */
+    font-size: 24px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.seats-grid {   /* Сетка из 20 мест в вагоне (5 колонок) */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.seat {   /* Отдельное место в вагоне */
+    background-color: #E0E0E0;
+    color: #333333;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+.seat:hover {                       /* Место при наведении */
+    background-color: #007BFF;
+    color: #FFFFFF;
+}
+
+.seat.selected {                    /* Место, на которое кликнули */
+    background-color: #007BFF !important; /* Важно: цвет не должен сбрасываться */
+    color: #FFFFFF !important;
+}
+
+.seat.occupied {   /* Занятое место (серое) */
+    background-color: #999999;
+    color: #FFFFFF;
+    cursor: not-allowed;
+}
+
+.seat-legend {   /* Подпись «(X — занято)» */
+    text-align: center;
+    color: #888888;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.fine-print {   /* Мелкий шрифт с правилами */
+    font-size: 12px;
+    color: #888888;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+
+
+
+
+/* СТРАНИЦА 5: КОНТАКТЫ */
+
+.contacts-container {   /* Общий контейнер страницы «Контакты» */
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.contacts-layout {   /* Две колонки: инфо + форма */
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.contacts-info { flex: 1; }   /* Левая колонка с контактами */
+
+.contacts-info p {   /* Строки контактной информации */
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.contacts-form { flex: 1; }   /* Правая колонка с формой */
+
+.contacts-map {   /* Карта внизу страницы */
+    width: 100%;
+    border-radius: 16px;
+    margin-top: 40px;
+}
+
+
+
+
+
+/* АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ (360px) */
+
+@media (max-width: 768px) {   /* Правила для экранов меньше 768px */
+
+    header {   /* Шапка на телефоне — в колонку */
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    header nav ul {   /* Меню на телефоне переносится на несколько строк */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    h1 { font-size: 32px; }   /* Уменьшенный главный заголовок */
+    h2 { font-size: 24px; }   /* Уменьшенный заголовок раздела */
+
+    .container { padding: 20px 15px; }   /* Меньше отступов у контейнера */
+
+    .grid-cards {   /* Карточки встают в одну колонку */
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    footer {   /* Подвал на телефоне — в колонку */
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 20px;
+        text-align: center;
+    }
+
+    .catalog-layout {   /* Каталог: фильтры и рейсы друг под другом */
+        flex-direction: column;
+        padding: 20px 15px;
+    }
+
+    .filters { width: 100%; }   /* Фильтры на телефоне — на всю ширину */
+
+    .route-card {   /* Карточка рейса на телефоне — в столбик */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .route-left,
+    .route-center,
+    .route-right {   /* Все три зоны карточки — слева, во всю ширину */
+        flex: 1 1 100%;
+        text-align: left;
+        width: 100%;
+    }
+
+    .item-top { flex-direction: column; }   /* Рейс: фото и текст друг под другом */
+
+    .item-image { width: 100%; }   /* Фото поезда — на всю ширину */
+
+    .item-info h1 { font-size: 26px; }   /* Заголовок маршрута поменьше */
+
+    .item-bottom { grid-template-columns: 1fr; }   /* Описание и характеристики в одну колонку */
+
+    .order-layout { flex-direction: column; }   /* Заказ: форма и корзина друг под другом */
+
+    .order-right { width: 100%; }   /* Корзина на телефоне — во всю ширину */
+
+    .contacts-layout { flex-direction: column; }   /* Контакты: колонки друг под другом */
+}
+
+.error-message {                      /* Текст ошибки под полем */
+    color: #FF0000;
+    font-size: 12px;
+    display: block;
+    margin-top: -10px;                /* Чуть подтягиваем к полю */
+    margin-bottom: 15px;
+}
+
+.success-message {                    /* Сообщение об успешной отправке */
+    color: #00AA00;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.seat.selected {                    /* Выбранное пользователем место */
+    background-color: #007BFF;
+    color: #FFFFFF;
+}

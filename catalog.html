@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог | ЖД Билеты</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="images/logo.png" alt="Логотип"><span>ЖД Билеты</span></div>
+        <nav><ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог</a></li>
+            <li><a href="item.html">Рейс</a></li>
+            <li><a href="order.html">Заказ</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul></nav>
+    </header>
+
+    <main>
+        <div class="catalog-layout">
+            <aside class="filters card">
+                <h2>Фильтры</h2>
+                <form id="filterForm">
+                    <label>Откуда:</label><input type="text" id="fromInput" placeholder="Санкт-Петербург">
+                    <label>Куда:</label><input type="text" id="toInput" placeholder="Москва">
+                    <label>Цена (до):</label><input type="text" id="priceInput" placeholder="3000">
+                    <span id="filterError" class="error-message"></span>
+                    <button type="submit" class="btn btn-full">Найти</button>
+                </form>
+            </aside>
+
+            <section class="routes">
+                <h2>Доступные рейсы</h2>
+                <!-- JS автоматически заполнит этот блок данными из базы -->
+                <div class="routes-list" id="routesList"></div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-col"><img src="images/logo.png" alt="Логотип" class="footer-logo"><p>© 2026 ЖД Билеты</p></div>
+        <div class="footer-col"><h3>Навигация</h3><a href="index.html">Главная</a><a href="catalog.html">Каталог</a><a href="item.html">Рейс</a><a href="order.html">Заказ</a><a href="contacts.html">Контакты</a><a href="profile.html">Профиль</a></div>
+        <div class="footer-col"><h3>Контакты</h3><p>Телефон: 8 (981) 112-46-77</p><p>Email: support@zhdbilety.ru</p><p>Адрес: г. Москва, ул. Ленина, 1</p></div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

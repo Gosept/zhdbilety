@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты | ЖД Билеты</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="images/logo.png" alt="Логотип"><span>ЖД Билеты</span></div>
+        <nav><ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог</a></li>
+            <li><a href="item.html">Рейс</a></li>
+            <li><a href="order.html">Заказ</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul></nav>
+    </header>
+
+    <main>
+        <div class="contacts-container">
+            <h1>Контакты</h1>
+            <div class="contacts-layout">
+                <div class="card contacts-info">
+                    <h2>Наши контакты</h2>
+                    <p><strong>Адрес:</strong> г. Москва, ул. Ленина, 1</p>
+                    <p><strong>Телефон:</strong> 8 (981) 112-46-77</p>
+                    <p><strong>Email:</strong> support@zhdbilety.ru</p>
+                    <p><strong>Режим работы:</strong> Пн-Пт: 9:00 - 18:00</p>
+                </div>
+
+                <div class="card contacts-form">
+                    <h2>Форма обратной связи</h2>
+                    <form id="feedbackForm">
+                        <label>Ваше имя:</label>
+                        <input type="text" id="nameInput" placeholder="Иван">
+                        <span id="nameError" class="error-message"></span>
+
+                        <label>Email:</label>
+                        <input type="text" id="emailInput" placeholder="example@mail.ru">
+                        <span id="emailError" class="error-message"></span>
+
+                        <label>Сообщение:</label>
+                        <textarea id="messageInput" placeholder="Ваше сообщение..." rows="5"></textarea>
+                        <span id="messageError" class="error-message"></span>
+
+                        <button type="submit" class="btn">Отправить</button>
+                    </form>
+                    <div id="successMessage" class="success-message"></div>
+                </div>
+            </div>
+            <img src="images/map.jpg" alt="Карта проезда к офису" class="contacts-map">
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-col"><img src="images/logo.png" alt="Логотип" class="footer-logo"><p>© 2026 ЖД Билеты</p></div>
+        <div class="footer-col"><h3>Навигация</h3><a href="index.html">Главная</a><a href="catalog.html">Каталог</a><a href="item.html">Рейс</a><a href="order.html">Заказ</a><a href="contacts.html">Контакты</a><a href="profile.html">Профиль</a></div>
+        <div class="footer-col"><h3>Контакты</h3><p>Телефон: 8 (981) 112-46-77</p><p>Email: support@zhdbilety.ru</p><p>Адрес: г. Москва, ул. Ленина, 1</p></div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

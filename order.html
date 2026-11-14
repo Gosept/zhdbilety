@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ | ЖД Билеты</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="images/logo.png" alt="Логотип"><span>ЖД Билеты</span></div>
+        <nav><ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог</a></li>
+            <li><a href="item.html">Рейс</a></li>
+            <li><a href="order.html">Заказ</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul></nav>
+    </header>
+
+    <main>
+        <div class="order-container">
+            <h1>Оформление заказа</h1>
+
+            <div class="order-route-info card">
+                <p id="routeInfo">Загрузка...</p>
+            </div>
+
+            <div class="order-layout">
+                <div class="order-left">
+                    <div class="card">
+                        <h2>Выберите места:</h2>
+                        <div class="seats-grid" id="seatsContainer">
+                            <button class="seat">1</button>
+                            <button class="seat">2</button>
+                            <button class="seat occupied">X</button>
+                            <button class="seat">4</button>
+                            <button class="seat">5</button>
+
+                            <button class="seat">6</button>
+                            <button class="seat occupied">X</button>
+                            <button class="seat">8</button>
+                            <button class="seat">9</button>
+                            <button class="seat">10</button>
+
+                            <button class="seat">11</button>
+                            <button class="seat">12</button>
+                            <button class="seat">13</button>
+                            <button class="seat occupied">X</button>
+                            <button class="seat">15</button>
+
+                            <button class="seat">16</button>
+                            <button class="seat">17</button>
+                            <button class="seat">18</button>
+                            <button class="seat">19</button>
+                            <button class="seat">20</button>
+                        </div>
+                        <p class="seat-legend">(X — занято)</p>
+                    </div>
+
+                    <div class="card">
+                        <h2>Данные пассажира:</h2>
+                        <label>ФИО:</label>
+                        <input type="text" placeholder="Иванов Иван Иванович">
+                        <label>Телефон:</label>
+                        <input type="text" placeholder="+7 (___) ___-__-__">
+                        <label>Email:</label>
+                        <input type="text" placeholder="example@mail.ru">
+                        <label>Паспорт:</label>
+                        <input type="text" placeholder="Серия и номер">
+                    </div>
+
+                    <div class="card">
+                        <h2>Способ оплаты:</h2>
+                        <label>Банковская карта</label>
+                        <input type="text" placeholder="0000 0000 0000 0000">
+                        <label>Срок действия:</label>
+                        <input type="text" placeholder="ММ/ГГ">
+                        <label>CVC/CVV:</label>
+                        <input type="text" placeholder="___">
+                    </div>
+
+                    <div class="card">
+                        <p class="fine-print">Я согласен с правилами покупки и возврата билетов...</p>
+                    </div>
+                </div>
+
+                <aside class="order-right card">
+                    <h2>Ваш заказ</h2>
+                    <p id="selectedSeatsText">Выбрано мест: 0</p>
+                    <p>Цена билета: <span id="ticketPrice">2500</span> ₽</p>
+                    <hr>
+                    <p class="order-total" id="totalPrice">Итого: 0 ₽</p>
+                    <!-- ВАЖНО: Добавили id="btnPay" для JS -->
+                    <button class="btn btn-full" id="btnPay">Оплатить</button>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-col"><img src="images/logo.png" alt="Логотип" class="footer-logo"><p>© 2026 ЖД Билеты</p></div>
+        <div class="footer-col"><h3>Навигация</h3><a href="index.html">Главная</a><a href="catalog.html">Каталог</a><a href="item.html">Рейс</a><a href="order.html">Заказ</a><a href="contacts.html">Контакты</a><a href="profile.html">Профиль</a></div>
+        <div class="footer-col"><h3>Контакты</h3><p>Телефон: 8 (981) 112-46-77</p><p>Email: support@zhdbilety.ru</p><p>Адрес: г. Москва, ул. Ленина, 1</p></div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

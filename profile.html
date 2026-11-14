@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет | ЖД Билеты</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="images/logo.png" alt="Логотип"><span>ЖД Билеты</span></div>
+        <nav><ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог</a></li>
+            <li><a href="item.html">Рейс</a></li>
+            <li><a href="order.html">Заказ</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="profile.html">Профиль</a></li> <!-- Новая вкладка -->
+        </ul></nav>
+    </header>
+
+    <main>
+        <div class="container" style="max-width: 600px; margin-top: 50px;">
+            
+            <!-- Блок: Авторизация (Виден, если не вошли) -->
+            <div id="authSection" class="card" style="display: none;">
+                <h2 id="authTitle">Вход</h2>
+                
+                <div id="authForm">
+                    <label>Email:</label>
+                    <input type="text" id="authEmail" placeholder="example@mail.ru">
+                    <label>Пароль:</label>
+                    <input type="password" id="authPassword" placeholder="******">
+                    
+                    <span id="authError" class="error-message"></span>
+                    
+                    <button class="btn btn-full" id="btnSubmitAuth">Войти</button>
+                    
+                    <p style="text-align: center; margin-top: 15px; font-size: 14px;">
+                        <a href="#" id="toggleAuthMode" style="color: #007BFF; text-decoration: none;">Нет аккаунта? Зарегистрироваться</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Блок: Профиль (Виден, если вошли) -->
+            <div id="profileSection" style="display: none;">
+                <div class="card">
+                    <h2>Мой профиль</h2>
+                    <p><strong>Email:</strong> <span id="userEmailDisplay"></span></p>
+                    <button class="btn" id="btnLogout" style="margin-top: 15px; background-color: #999;">Выйти</button>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h2>Мои билеты</h2>
+                    <div id="myOrdersList">
+                        <!-- Сюда JS будет выводить купленные билеты -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer>
+        <div class="footer-col"><img src="images/logo.png" alt="Логотип" class="footer-logo"><p>© 2026 ЖД Билеты</p></div>
+        <div class="footer-col"><h3>Навигация</h3><a href="index.html">Главная</a><a href="catalog.html">Каталог</a><a href="item.html">Рейс</a><a href="order.html">Заказ</a><a href="contacts.html">Контакты</a></div>
+        <div class="footer-col"><h3>Контакты</h3><p>Телефон: 8 (981) 112-46-77</p><p>Email: support@zhdbilety.ru</p><p>Адрес: г. Москва, ул. Ленина, 1</p></div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

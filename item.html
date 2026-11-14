@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рейс | ЖД Билеты</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="images/logo.png" alt="Логотип"><span>ЖД Билеты</span></div>
+        <nav><ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог</a></li>
+            <li><a href="item.html">Рейс</a></li>
+            <li><a href="order.html">Заказ</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul></nav>
+    </header>
+
+    <main>
+        <div class="item-container">
+            <a href="catalog.html" class="back-link">← Назад в каталог</a>
+
+            <div class="item-top">
+                <img src="images/train5.jpg" alt="Поезд" class="item-image">
+
+                <div class="item-info">
+                    <h1 id="itemRouteTitle">Загрузка...</h1>
+                    <p class="item-number">Поезд <span id="itemTrain"></span></p>
+                    
+                    <p>Отправление: <span id="itemDep"></span></p>
+                    <p>Прибытие: <span id="itemArr"></span></p>
+                    <p>В пути: <span id="itemDur"></span></p>
+                    
+                    <p class="item-price">Цена: от <span id="itemPriceText"></span> ₽</p>
+                    
+                    <a href="#" id="bookBtn" class="btn">Выбрать места</a>
+
+                    <div id="weatherContainer" style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 8px;">
+                        <strong>Погода в городе прибытия:</strong> 
+                        <span id="weatherResult">Загрузка...</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="item-section-title">Описание рейса:</h2>
+            <div class="item-bottom">
+                <div class="card item-description">
+                    <p>Комфортабельный поезд дальнего следования с современными вагонами. В каждом купе — мягкие полки, розетки для зарядки устройств и кондиционер.</p>
+                </div>
+                <div class="card item-features">
+                    <p><strong>Тип вагонов:</strong> Купе, Плацкарт, СВ</p>
+                    <p><strong>Удобства:</strong> Wi-Fi, Кондиционер</p>
+                    <p><strong>Перевозчик:</strong> ЖД Поезда</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-col"><img src="images/logo.png" alt="Логотип" class="footer-logo"><p>© 2026 ЖД Билеты</p></div>
+        <div class="footer-col"><h3>Навигация</h3><a href="index.html">Главная</a><a href="catalog.html">Каталог</a><a href="item.html">Рейс</a><a href="order.html">Заказ</a><a href="contacts.html">Контакты</a><a href="profile.html">Профиль</a></div>
+        <div class="footer-col"><h3>Контакты</h3><p>Телефон: 8 (981) 112-46-77</p><p>Email: support@zhdbilety.ru</p><p>Адрес: г. Москва, ул. Ленина, 1</p></div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
