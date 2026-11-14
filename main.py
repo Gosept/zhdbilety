@@ -120,36 +120,3 @@ def get_user_orders(user_id: int):
     ''', (user_id,)).fetchall()
     conn.close()
     return [dict(order) for order in orders]
-
-# ОБРАБОТЧИК 7: Удаление аккаунта
-class UserDelete(BaseModel):
-    password: str
-
-@app.delete("/api/users/{user_id}")
-def delete_user(user_id: int, user_data: UserDelete):
-    conn = get_db_connection()
-    
-    # 1. Ищем пользователя
-    user = conn.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
-    if not user:
-        conn.close()
-        raise HTTPException(status_code=404, detail="Пользователь не найден")
-    
-    # 2. Проверяем, правильно ли введен пароль
-    password_bytes = user_data.password.encode('utf-8')[:72]
-    hashed_bytes = user['password_hash'].encode('utf-8')
-    
-    if not bcrypt.checkpw(password_bytes, hashed_bytes):
-        conn.close()
-        raise HTTPException(status_code=400, detail="Неверный пароль. Удаление отменено.")
-    
-    # 3. Удаляем сначала все заказы пользователя (чтобы не было ошибки базы данных)
-    conn.execute('DELETE FROM orders WHERE user_id = ?', (user_id,))
-    
-    # 4. Удаляем самого пользователя
-    conn.execute('DELETE FROM users WHERE id = ?', (user_id,))
-    
-    conn.commit()
-    conn.close()
-    
-    return {"message": "Аккаунт успешно удален"}
