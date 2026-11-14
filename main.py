@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import bcrypt
 import sqlite3
@@ -15,7 +17,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Модели для приема данных от пользователя
+# Раздаем папку с картинками
+app.mount("/images", StaticFiles(directory="images"), name="images")
+
 class UserAuth(BaseModel):
     email: str
     password: str
@@ -25,7 +29,10 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row 
     return conn
 
-# ОБРАБОТЧИК 1: Получить список всех рейсов
+# ==========================================
+# ОБРАБОТЧИКИ ДЛЯ API (ДАННЫЕ)
+# ==========================================
+
 @app.get("/api/routes")
 def get_routes():
     conn = get_db_connection()
@@ -33,41 +40,35 @@ def get_routes():
     conn.close()
     return [dict(route) for route in routes]
 
-# ОБРАБОТЧИК 2: Регистрация
 @app.post("/api/register")
 def register(user: UserAuth):
     conn = get_db_connection()
-    
     existing_user = conn.execute('SELECT * FROM users WHERE email = ?', (user.email,)).fetchone()
     if existing_user:
         conn.close()
         raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует")
     
-    # Хешируем пароль через bcrypt напрямую
-    password_bytes = user.password.encode('utf-8')
+    # Ограничиваем длину пароля до 72 байт для bcrypt
+    password_bytes = user.password.encode('utf-8')[:72]
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password_bytes, salt).decode('utf-8')
     
-    # Безопасный SQL-запрос
     conn.execute('INSERT INTO users (email, password_hash) VALUES (?, ?)', (user.email, hashed_password))
     conn.commit()
     conn.close()
-    
     return {"message": "Пользователь успешно зарегистрирован"}
 
-# ОБРАБОТЧИК 3: Вход (Авторизация)
 @app.post("/api/login")
 def login(user: UserAuth):
     conn = get_db_connection()
-    
     db_user = conn.execute('SELECT * FROM users WHERE email = ?', (user.email,)).fetchone()
     conn.close()
     
     if not db_user:
         raise HTTPException(status_code=400, detail="Неверный email или пароль")
     
-    # Проверяем пароль через bcrypt
-    password_bytes = user.password.encode('utf-8')
+    # Ограничиваем длину пароля до 72 байт
+    password_bytes = user.password.encode('utf-8')[:72]
     hashed_bytes = db_user['password_hash'].encode('utf-8')
     
     if not bcrypt.checkpw(password_bytes, hashed_bytes):
@@ -75,19 +76,15 @@ def login(user: UserAuth):
     
     return {"message": "Вход выполнен успешно", "user_id": db_user['id']}
 
-# ОБРАБОТЧИК 4: Получить один рейс по ID
 @app.get("/api/routes/{route_id}")
 def get_one_route(route_id: int):
     conn = get_db_connection()
     route = conn.execute('SELECT * FROM routes WHERE id = ?', (route_id,)).fetchone()
     conn.close()
-    
     if not route:
         raise HTTPException(status_code=404, detail="Рейс не найден")
-        
     return dict(route)
 
-# ОБРАБОТЧИК 5 (Бонус для варианта с заказами): Создание заказа
 class OrderCreate(BaseModel):
     user_id: int
     route_id: int
@@ -96,22 +93,17 @@ class OrderCreate(BaseModel):
 @app.post("/api/orders")
 def create_order(order: OrderCreate):
     conn = get_db_connection()
-    
-    # Сохраняем заказ в базу
     conn.execute(
         'INSERT INTO orders (user_id, route_id, seat_number) VALUES (?, ?, ?)', 
         (order.user_id, order.route_id, order.seat_number)
     )
     conn.commit()
     conn.close()
-    
     return {"message": "Заказ успешно создан"}
 
-# ОБРАБОТЧИК 6: Получить заказы пользователя (для профиля)
 @app.get("/api/orders/user/{user_id}")
 def get_user_orders(user_id: int):
     conn = get_db_connection()
-    # Сложный SQL-запрос: соединяем таблицу заказов и рейсов, чтобы узнать города и цену
     orders = conn.execute('''
         SELECT orders.id, orders.seat_number, routes.from_city, routes.to_city, routes.train_number, routes.price 
         FROM orders 
@@ -120,3 +112,39 @@ def get_user_orders(user_id: int):
     ''', (user_id,)).fetchall()
     conn.close()
     return [dict(order) for order in orders]
+
+# ==========================================
+# ОБРАБОТЧИКИ ДЛЯ РАЗДАЧИ HTML/JS/CSS СТРАНИЦ
+# ==========================================
+
+@app.get("/")
+def read_index():
+    return FileResponse("index.html")
+
+@app.get("/catalog.html")
+def read_catalog():
+    return FileResponse("catalog.html")
+
+@app.get("/item.html")
+def read_item():
+    return FileResponse("item.html")
+
+@app.get("/order.html")
+def read_order():
+    return FileResponse("order.html")
+
+@app.get("/profile.html")
+def read_profile():
+    return FileResponse("profile.html")
+
+@app.get("/contacts.html")
+def read_contacts():
+    return FileResponse("contacts.html")
+
+@app.get("/script.js")
+def read_js():
+    return FileResponse("script.js")
+
+@app.get("/style.css")
+def read_css():
+    return FileResponse("style.css")

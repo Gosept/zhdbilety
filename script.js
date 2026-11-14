@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (filterForm) {
         let routesList = document.getElementById("routesList");
         
-        // Загружаем данные с сервера
-        fetch("http://127.0.0.1:8000/api/routes")
+        // Загружаем данные с сервера (относительный путь /api/routes)
+        fetch("/api/routes")
             .then(response => response.json())
             .then(data => {
                 routesList.innerHTML = ""; // Очищаем контейнер перед вставкой
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => {
                 console.error("Ошибка загрузки:", error);
-                routesList.innerHTML = "<p style='color:red;'>Не удалось загрузить рейсы с сервера. Сервер включен?</p>";
+                routesList.innerHTML = "<p style='color:red;'>Не удалось загрузить рейсы с сервера.</p>";
             });
 
         // Логика фильтрации
@@ -110,14 +110,13 @@ document.addEventListener("DOMContentLoaded", function() {
         let routeId = urlParams.get("id");
 
         if (routeId) {
-            // Запрашиваем данные конкретного рейса по ID из базы
-            fetch(`http://127.0.0.1:8000/api/routes/${routeId}`)
+            // Запрашиваем данные конкретного рейса по ID из базы (относительный путь)
+            fetch(`/api/routes/${routeId}`)
                 .then(response => {
                     if (!response.ok) throw new Error("Рейс не найден");
                     return response.json();
                 })
                 .then(data => {
-                    // Подставляем данные в HTML
                     itemRouteTitle.innerText = data.from_city + " — " + data.to_city;
                     document.getElementById("itemPriceText").innerText = data.price;
                     document.getElementById("itemTrain").innerText = data.train_number;
@@ -125,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     document.getElementById("itemArr").innerText = data.arr_time;
                     document.getElementById("itemDur").innerText = data.duration;
 
-                    // Передаем данные в Заказ (ссылку)
                     let bookBtn = document.getElementById("bookBtn");
                     bookBtn.href = `order.html?id=${data.id}&from=${data.from_city}&to=${data.to_city}&price=${data.price}`;
 
@@ -161,11 +159,11 @@ document.addEventListener("DOMContentLoaded", function() {
     let seatsContainer = document.getElementById("seatsContainer");
     if (seatsContainer) {
         let urlParams = new URLSearchParams(window.location.search);
-        let routeId = urlParams.get("id"); // Читаем ID рейса из ссылки
+        let routeId = urlParams.get("id"); 
         let fromCity = urlParams.get("from");
         let toCity = urlParams.get("to");
         let ticketPrice = urlParams.get("price");
-        let pricePerSeat = 2500; // по умолчанию
+        let pricePerSeat = 2500; 
 
         if (fromCity && toCity) {
             document.getElementById("routeInfo").innerText = `${fromCity} — ${toCity} | Поезд 001А | 03 ноября | 10:00 → 14:00`;
@@ -178,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
         let allSeats = document.querySelectorAll(".seat");
         let selectedSeatsCount = 0;
 
-        // Логика выбора мест
         for (let i = 0; i < allSeats.length; i++) {
             let seat = allSeats[i];
             if (seat.classList.contains("occupied")) continue;
@@ -194,7 +191,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
-        // --- ИСПРАВЛЕННЫЙ БЛОК: Обработка кнопки "Оплатить" ---
         let btnPay = document.getElementById("btnPay");
         if (btnPay) {
             btnPay.addEventListener("click", async function() {
@@ -218,17 +214,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     return;
                 }
 
-                // Меняем текст на кнопке, чтобы показать загрузку
                 btnPay.innerText = "Оплата...";
                 btnPay.disabled = true;
 
-                // Цикл, который покупает билеты ПО ОЧЕРЕДИ
                 for (let i = 0; i < selectedSeats.length; i++) {
                     let seatNum = selectedSeats[i].innerText;
                     
                     try {
-                        // await ждет ответа сервера, и только потом цикл идет дальше
-                        let response = await fetch("http://127.0.0.1:8000/api/orders", {
+                        let response = await fetch("/api/orders", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
@@ -246,7 +239,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 }
 
-                // Когда все места куплены (цикл закончился), перекидываем в профиль
                 alert("Билеты успешно куплены! Проверьте личный кабинет.");
                 window.location.href = "profile.html";
             });
@@ -266,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("profileSection").style.display = "block";
             document.getElementById("userEmailDisplay").innerText = loggedInEmail;
             
-            fetch(`http://127.0.0.1:8000/api/orders/user/${loggedInUserId}`)
+            fetch(`/api/orders/user/${loggedInUserId}`)
                 .then(res => res.json())
                 .then(orders => {
                     let list = document.getElementById("myOrdersList");
@@ -293,7 +285,6 @@ document.addEventListener("DOMContentLoaded", function() {
             authSection.style.display = "block";
         }
 
-        // Переключение между Входом и Регистрацией
         document.getElementById("toggleAuthMode").addEventListener("click", function(e) {
             e.preventDefault();
             isLoginMode = !isLoginMode;
@@ -302,7 +293,6 @@ document.addEventListener("DOMContentLoaded", function() {
             this.innerText = isLoginMode ? "Нет аккаунта? Зарегистрироваться" : "Уже есть аккаунт? Войти";
         });
 
-        // Обработка нажатия кнопки Войти/Зарегистрироваться
         document.getElementById("btnSubmitAuth").addEventListener("click", function() {
             let email = document.getElementById("authEmail").value.trim();
             let password = document.getElementById("authPassword").value.trim();
@@ -311,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             let endpoint = isLoginMode ? "/api/login" : "/api/register";
 
-            fetch(`http://127.0.0.1:8000${endpoint}`, {
+            fetch(endpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: email, password: password })
@@ -336,7 +326,6 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
 
-        // Выход из аккаунта
         document.getElementById("btnLogout").addEventListener("click", function() {
             localStorage.removeItem("userId");
             localStorage.removeItem("userEmail");
