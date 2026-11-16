@@ -5,6 +5,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import bcrypt
 import sqlite3
+import os
 
 app = FastAPI()
 
@@ -24,8 +25,11 @@ class UserAuth(BaseModel):
     email: str
     password: str
 
+# Берем имя базы из переменной окружения (или tickets.db по умолчанию)
+DB_NAME = os.environ.get("DATABASE_URL", "tickets.db")
+
 def get_db_connection():
-    conn = sqlite3.connect('tickets.db')
+    conn = sqlite3.connect(DB_NAME)
     conn.row_factory = sqlite3.Row 
     return conn
 
@@ -108,12 +112,18 @@ def get_user_orders(user_id: int):
     conn.close()
     return [dict(order) for order in orders]
 
+@app.get("/api/users")
+def get_all_users():
+    conn = get_db_connection()
+    users = conn.execute('SELECT id, email, password_hash FROM users').fetchall()
+    conn.close()
+    return [dict(user) for user in users]
+
 # РАЗДАЧА СТРАНИЦ (HTML, CSS, JS)
 @app.get("/")
 def read_root():
     return FileResponse("index.html")
 
-# Я добавил маршрут для index.html!
 @app.get("/index.html")
 def read_index():
     return FileResponse("index.html")
@@ -145,10 +155,3 @@ def read_js():
 @app.get("/style.css")
 def read_css():
     return FileResponse("style.css")
-    
-@app.get("/api/users")
-def get_all_users():
-    conn = get_db_connection()
-    users = conn.execute('SELECT id, email, password_hash FROM users').fetchall()
-    conn.close()
-    return [dict(user) for user in users]
